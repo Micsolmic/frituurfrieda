@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?> 
+<Context path='/frituurfrida'>
+<Resource name='jdbc/frituurfrieda' 
+type='javax.sql.DataSource' 
+driverClassName='com.mysql.jdbc.Driver' 
+url='jdbc:mysql://localhost/frituurfrieda?useSSL=false' 
+username='cursist' 
+password='vdabvdab' 
+closeMethod='close'/> 
+</Context>

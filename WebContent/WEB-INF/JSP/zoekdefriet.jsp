@@ -1,38 +1,41 @@
-<%@page contentType='text/html' pageEncoding='UTF-8' session='false'%>
+<%@page contentType='text/html' pageEncoding='UTF-8'%>
+<%-- Op de vorige regel wordt session="false" niet vermeld --%>
+<%-- Zo komt session="true" (de default) --%>
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
 <!doctype html>
 <html lang='nl'>
 <head>
-<title>firetetn zoeken</title>
-<link rel="stylesheet" href="<c:url value='/css/zoekdefriet.css'/>">
+
 </head>
-
 <body>
-
-<h1>Zoek die friet</h1>
-
-
-<c:forEach var='deur' items='${deuren}' varStatus="status">
-<form method="post" class="neighbourly">
-<button type='submit' name='volgnummer' value="${status.index}">
-	
-	<img src='<c:url value ="/img/${deur}.png"/>' alt='deur toe'>
-	
-	
-<c:if test='${deur=="gevonden"}'> 
-	<c:set var='felicitatie' value='proficiat'/>
-	</c:if>
-
+<h1>Zoek de friet</h1>
+<form method='post'>
+<c:forEach items='${zoekDeFrietSpel.deuren}' var='deur' varStatus="status">
+<button type='submit' name='volgnummer' value='${status.index}'>
+<c:choose>
+<c:when test='${deur.open}'>
+<c:choose>
+<c:when test='${deur.metFriet}'>
+<img src='<c:url value="/img/gevonden.png"/>' alt='gevonden'>
+</c:when>
+<c:otherwise>
+<img src='<c:url value="/img/deuropen.png"/>' alt='deur open'>
+</c:otherwise>
+</c:choose>
+</c:when>
+<c:otherwise>
+<img src='<c:url value="/img/deurtoe.png"/>' alt='deur toe'>
+</c:otherwise>
+</c:choose>
 </button>
-</form>
 </c:forEach>
 
-
-<form method='post'>
-<button type='submit' name='nieuwspel' value='true'>nieuw spel</button>
 </form>
-<br><br>
-<h1>${felicitatie}</h1>
-
+<c:url value='' var='nieuwSpelURL'>
+<c:param name='nieuwSpel' value='true'/>
+</c:url>
+<form method='post' action='${nieuwSpelURL}'>
+<input type='submit' value='Nieuw spel'>
+</form>
 </body>
 </html>
